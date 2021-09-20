@@ -1,0 +1,25 @@
+1)To install package for postgresql :-
+   dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 5.0.9
+
+2)For Connection String :-
+
+    "ConnectionStrings": {
+    "PostgresSqlConnectionstring":"Host=localhost;Port=5432;User ID=postgres;Password=12345;Database=UserDb;Pooling=true"
+     }
+
+3) for tools :-
+
+  I.)dotnet tool install --global dotnet-ef
+   II.)dotnet add package Microsoft.EntityFrameworkCore.Tools
+  III.)dotnet add package Microsoft.EntityFrameworkCore.Design
+ 
+
+3) for Migrations :-   
+  IV.)dotnet ef migrations add phase1
+  V.)dotnet ef database update
+
+4) For automapper :-
+     dotnet add package AutoMapper --version 10.1.1
+
+5)Abstract Model Validator
+      dotnet add package FluentValidation.DependencyInjectionExtensions --version 10.3.3
