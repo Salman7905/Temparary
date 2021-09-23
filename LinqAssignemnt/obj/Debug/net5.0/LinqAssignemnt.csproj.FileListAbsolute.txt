@@ -1,0 +1,16 @@
+D:\TaazaaTraining\Day28\LinqAssignemnt\bin\Debug\net5.0\LinqAssignemnt.exe
+D:\TaazaaTraining\Day28\LinqAssignemnt\bin\Debug\net5.0\LinqAssignemnt.deps.json
+D:\TaazaaTraining\Day28\LinqAssignemnt\bin\Debug\net5.0\LinqAssignemnt.runtimeconfig.json
+D:\TaazaaTraining\Day28\LinqAssignemnt\bin\Debug\net5.0\LinqAssignemnt.runtimeconfig.dev.json
+D:\TaazaaTraining\Day28\LinqAssignemnt\bin\Debug\net5.0\LinqAssignemnt.dll
+D:\TaazaaTraining\Day28\LinqAssignemnt\bin\Debug\net5.0\ref\LinqAssignemnt.dll
+D:\TaazaaTraining\Day28\LinqAssignemnt\bin\Debug\net5.0\LinqAssignemnt.pdb
+D:\TaazaaTraining\Day28\LinqAssignemnt\obj\Debug\net5.0\LinqAssignemnt.csproj.AssemblyReference.cache
+D:\TaazaaTraining\Day28\LinqAssignemnt\obj\Debug\net5.0\LinqAssignemnt.GeneratedMSBuildEditorConfig.editorconfig
+D:\TaazaaTraining\Day28\LinqAssignemnt\obj\Debug\net5.0\LinqAssignemnt.AssemblyInfoInputs.cache
+D:\TaazaaTraining\Day28\LinqAssignemnt\obj\Debug\net5.0\LinqAssignemnt.AssemblyInfo.cs
+D:\TaazaaTraining\Day28\LinqAssignemnt\obj\Debug\net5.0\LinqAssignemnt.csproj.CoreCompileInputs.cache
+D:\TaazaaTraining\Day28\LinqAssignemnt\obj\Debug\net5.0\LinqAssignemnt.dll
+D:\TaazaaTraining\Day28\LinqAssignemnt\obj\Debug\net5.0\ref\LinqAssignemnt.dll
+D:\TaazaaTraining\Day28\LinqAssignemnt\obj\Debug\net5.0\LinqAssignemnt.pdb
+D:\TaazaaTraining\Day28\LinqAssignemnt\obj\Debug\net5.0\LinqAssignemnt.genruntimeconfig.cache
