@@ -1,0 +1,170 @@
+table name TaazaaTraining
+id auto gegerated, name varchar not null,age ,address
+
+insert into Taazaa_Training(Name,Age,Address)Values('Mike','20','Delhi'),('DeVilliers','35','Banglore');
+insert into Taazaa_Training(Name,Age,Address)Values('Salman Ahmed','23','Banglore'),('Gurpreet Singh','25','Noida');
+
+update Taazaa_Training set Address='Delhi' where id=3;
+UPDATE 1
+newdb=# update Taazaa_Training set Address='Delhi' where id=4;
+
+select* from Taazaa_Training;
+ id |      name      | age | address
+----+----------------+-----+----------
+  1 | Mike           |  20 | Delhi
+  2 | DeVilliers     |  35 | Banglore
+  3 | Salman Ahmed   |  23 | Delhi
+  4 | Gurpreet Singh |  25 | Delhi
+
+// Day 10
+1.) Update Query :-
+ update Taazaa_Training set Address='Delhi' where id=4;
+-------------------------------------------------------------
+2.) Alter Query :- 
+               ALTER TABLE for changing the structure of a table.r schema command. 
+
+     Ex -
+      1. ALTER TABLE table_name ADD COLUMN new_column_name TYPE;
+	  2. ALTER TABLE table_name DROP COLUMN column_name
+	  3. ALTER TABLE table_name RENAME TO new_table_name;
+----------------------------------------------------------------	  
+3.) Delete Query :-
+                The DELETE command is used to delete all existing records from a table. And the WHERE clause is used to remove the selected records or else,	
+	            all the data would be eliminated.	  
+	Ex -
+     DELETE FROM table_name    
+     WHERE [condition];
+------------------------------------------------------------------------------------------------------------------
+Aggregate func :-
+                I. To perform calculations on multiple rows of a single column.
+                II.It returns a single value.
+                III.It is used to summarize data.
+                1) COUNT
+                2) MAX
+                3) MIN
+                4) AVG 
+                5) SUM  
+Having :- Works on Aggregate data.
+Group by :- Works on rows data not on aggregate data.
+
+----------------------------------------------------------------------------------------------------------------------------
+4.)Order By :-
+             In this section, we are going to learn the PostgreSQL ORDER BY condition, which is used for sorting data in ascending or descending order. And the records are 
+			 fetched on the basis of one or more columns. 	
+			 
+    Ex :-	
+       1. select* from Taazaa_Training order by name;    // Asc by default
+          id |      name      | age | address
+          ----+----------------+-----+----------
+          2 | DeVilliers     |  35 | Banglore
+          4 | Gurpreet Singh |  25 | Delhi
+          1 | Mike           |  20 | Delhi
+          3 | Salman Ahmed   |  23 | Delhi
+
+       2.  select* from Taazaa_Training order by name desc;
+           id |      name      | age | address
+           ----+----------------+-----+----------
+            3 | Salman Ahmed   |  23 | Delhi
+            1 | Mike           |  20 | Delhi
+            4 | Gurpreet Singh |  25 | Delhi
+            2 | DeVilliers     |  35 | Banglore
+------------------------------------------------------------------------
+5.) Gropy By :-
+             this clause is used to split rows into groups where the GROUP BY condition collects the data across several record and sets the result by one or more 
+             columns. And every group can apply an aggregate function like COUNT() function is used to get the number of items in the groups, and the SUM() function
+             is used to analyze the sum of items.
+		
+    Ex -
+	        
+            Select id from Taazaa_Training group by id;
+            id
+           ----
+            3
+            4 
+            2
+            1
+
+            select id from Taazaa_Training group by id order by id;
+            id 
+            ----
+             1
+             2
+             3
+             4
+			 
+			 select Name,Sum(Salary) from Taazaa_Training group by Name Order by sum(Salary);
+                   name      |  sum
+             ----------------+--------
+              Gurpreet Singh | 500000
+              Salman Ahmed   | 500000
+              Mike           | 550000
+              DeVilliers     | 800000
+-------------------------------------------------------------------			 
+6.)Count() Function :-			 
+                 select Count(id) from Taazaa_Training;
+                 count
+                 -------
+                   4         
+---------------------------------------------------------------------
+7.) Having Clause :-
+                  The having clause is used to specify a search condition for a group or an aggregate. 
+				  And it is regularly used with the GROUP BY clause to filter groups 
+				  or aggregates based on a detailed condition.
+				  
+				  Group By  Clause   | Having Clause
+			   -----------------------------------------      
+			   It is used to return  |	It is used to define 
+  			   rows grouped by       |  a condition which filter
+			   column1               |  the sets.
+               Apply row only        |  Apply group of rows			   
+			                 
+     Ex -
+	      Select *from Taazaa_Training;
+          id |      name      | age |  address  | salary
+          ----+----------------+-----+-----------+--------
+          3 | Salman Ahmed   |  23 | Delhi     | 500000
+          4 | Gurpreet Singh |  25 | Delhi     | 500000
+          2 | DeVilliers     |  35 | Banglore  | 800000
+          1 | Mike           |  20 | Delhi     | 550000
+          5 | Salman Ahmed   |  23 | Sultanpur |
+          6 | DeVilliers     |  25 | Lucknow   |
+								   
+           Select Name from Taazaa_Training group by Name having Count(Name)>1;
+            name
+          --------------
+           DeVilliers
+           Salman Ahmed
+------------------------------------------------------------------------------
+And :- 
+    INSERT INTO employee  
+   (phone, address)  
+   SELECT phone, address  
+   FROM department  
+   WHERE dept_id < 5  
+   AND department_name = 'SALES'; 
+
+Like :-
+       SELECT emp_fname, emp_lname  
+       FROM employee  
+      WHERE emp_fname LIKE '%in%'  
+      ORDER BY emp_fname;
+IN :-
+
+     SELECT *  
+     FROM employee  
+     WHERE emp_fname IN ('John', 'Ava')  
+     ORDER BY emp_id DESC;  	  
+
+Exists:-    				  
+			 
+ select Name ,Id from Taazaa_Training where exists(select * from Taazaa_Training where name like 'Sa%' or name like 'Gu%');
+      name      | id
+----------------+----
+ Salman Ahmed   |  5
+ DeVilliers     |  6
+ Gurpreet Singh |  4
+ Salman Ahmed   |  3
+ Mike           |  1
+ DeVilliers     |  2
+(6 rows)			 
+	

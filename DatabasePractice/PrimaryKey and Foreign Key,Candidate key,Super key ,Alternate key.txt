@@ -1,0 +1,59 @@
+// Primary key and Foreign key 
+
+Product Table    // Master table or parent table
+CREATE TABLE products (Product_no int Primary key ,
+                      Product_name text,
+   					  price int);
+					  
+// Order table , which contains foreign key , or child table
+
+ CREATE TABLE orders (Order_id int primary key , Product_no int references products(product_no),quantity int);
+ 
+ insert into Products(product_no ,Product_name,price)values(1,'Mobile',30000),(2,'TV',35000);
+ 
+ newdb=# select* from products;
+ product_no | product_name | price
+------------+--------------+-------
+          1 | Mobile       | 30000
+          2 | TV           | 35000
+(2 rows)
+
+
+insert into Orders(Order_id ,Product_no,Quantity)values(101,1,2),(102,2,1);
+ select* from orders;
+ order_id | product_no | quantity
+----------+------------+----------
+      101 |          1 |        2
+      102 |          2 |        1
+(2 rows)
+
+
+
+
+3) Super Key :-
+               Super key is a single key or group of multiple key that can uniquely identify in a table,
+               but when grouped with certain keys they can identify tuple uniquely.
+               
+               Ex        id | Name       | Email
+                     -------+------------+----------
+                        101 |Mike        | mk@gmail.com
+                        102 |Jhon        | jn@gmail.com
+                         
+           Here id and dept_id is super key but for instance (id,name) ,(id,email),(id,name,email) etc can grouped
+    	   be super key.
+  
+
+3) Candidate Key :-
+
+                   
+
+
+4) Alternate key :-
+
+
+5) Composite key :-
+
+
+
+
+

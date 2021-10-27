@@ -1,0 +1,46 @@
+Views :- 
+        View is a clone or as a photo copy or duplicate copy of original table.
+		
+        View is underlying on a table , which can not be change .
+	View is used for encapsulation and high end security.
+	View can have data from  one or more table.
+        View - No DML(not insert ,no update ,no delete)
+	DROP VIEW view_name;
+
+	Syntax to create :- create view ViewName as select name,age from table;
+	Syntax to select :- select * from viewName;
+
+Ex - for single table 
+
+          create view Emp_view as select Employee_name from Employee;
+          CREATE VIEW
+          select* from emp_view;
+          employee_name
+          -------------
+             Mike
+          DeVilliers
+           (2 rows)
+
+Ex - for multiple table
+		 create view EmpDep_view as select Employee_name ,Department_name from Employee,Department;
+                CREATE VIEW
+
+              select* from EmpDep_view;
+          employee_name | department_name
+         ---------------+-----------------
+          Mike          | IT Department
+          Mike          | HR Department
+          DeVilliers    | IT Department
+          DeVilliers    | HR Department
+          (4 rows)
+
+
+
+        create view EmpDep_view1 as select Employee_name ,Department_name from Employee,Department where Employee.Employee_id=Department.Employee_id;
+        CREATE VIEW
+        select* from EmpDep_view1;
+        employee_name | department_name
+        --------------+-----------------
+        DeVilliers    | IT Department
+        Mike          | HR Department
+         (2 rows)

@@ -1,0 +1,74 @@
+26/10/2021
+-----------
+create table employee(emp_id int GENERATED ALWAYS AS IDENTITY,emp_name varchar(20));
+CREATE TABLE
+--------------------------------
+create procedure public.addEmployee(
+eName text)
+language plpgsql
+as $body$
+begin
+	insert into employee(emp_name) values(eName);
+	commit;
+end 
+    $body$;
+---------------
+
+CREATE PROCEDURE
+------------------------------
+
+
+call public.addEmployee('Mike');
+CALL
+call public.addEmployee('DeVilliers');
+CALL
+--------------------------------------
+
+create or replace procedure public.fetchEmployee()
+language plpgsql
+as $body$
+begin
+	select * from employee;
+	commit;
+end 
+    $body$;
+----------------
+CREATE PROCEDURE
+----------------
+
+call public.fetchEmployee;
+----------------------------
+
+Note :- for DML operation use procedure and for fetching use function.
+---------------------------------------------------------
+create or replace function fetchEmployees()
+returns SETOF employee
+as
+$$
+begin
+return query select * from employee;
+end;
+$$
+language plpgsql;
+
+
+=> CREATE FUNCTION
+-----------------------------------
+ select  fetchEmployees();
+ 
+fetchemployees
+----------------
+ (1,Mike)
+ (2,DeVilliers)
+------------------------------------
+
+CREATE PROCEDURE SearchEmp(i integer,INOUT name1 VARCHAR DEFAULT null)
+LANGUAGE plpgsql AS
+$proc$
+BEGIN
+   SELECT emp_name FROM Employee WHERE emp_id =i
+   INTO name1;                              
+END
+$proc$;
+
+call SearchEmp(1)

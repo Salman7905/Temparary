@@ -1,0 +1,160 @@
+//what is join and Types of joins
+
+Join :- 
+        JOINS are used with SELECT command, which helps us to retrieve data from various tables.
+		And we can merge the Select and Joins statements together into a single command.
+		Whenever we want to get records from two or more tables, we will execute the joins commands.
+Types of joins
+
+1)Inner join :-  
+               inner join, which is used to select data from many tables.
+               and returns matching values in both tables.
+			   
+               Syntax => SELECT [column_list |*] FROM table1 INNER JOIN table2 ON table1.column_name=table2.column.name;
+
+Ex:-  
+       select Product_name ,price from Products INNER JOIN Orders ON Products.Product_no=Orders.Product_no;
+       product_name | price
+      --------------+-------
+       Mobile       | 30000
+       TV           | 35000
+  
+  
+2)full Outer Join or full join :-
+                Full Join or Full Outer Join is used to return all records when there is a match in the left table or right 
+				table records. The main objective of a Full Outer Join is that it will combine the outcome of PostgreSQL Left 
+				Join and PostgreSQL Right Join clauses and returns all similar or unmatched rows from the tables on both sides
+				of the join clause.
+				Returns all rows from both tables.
+				
+				 we use the Full Outer Join keyword in place of Full Join keyword in the above query, we will get similar output.
+     
+                Syntax => 	 SELECT columns FROM table1 FULL [OUTER] JOIN table2 ON table1.column = table2.column; 
+				
+Ex -
+               Product_name ,price from Products FULL JOIN Orders ON Products.Product_no=Orders.Product_no;
+               product_name | price
+              --------------+-------
+               Mobile       | 30000
+               TV           | 35000
+                            |
+               AC           | 28000				
+			   
+Left Join :-
+          
+             Returns all records from left table and matcheing from right table.
+             And if there are no corresponding records found from the right table, it will return null.
+   			
+			Syntax => SELECT columns FROM table1 LEFT [OUTER] JOIN table2 ON table1.column = table2.column;
+Ex -
+          select Product_name ,price from Products LEFT OUTER JOIN Orders ON Products.Product_no=Orders.Product_no;
+          product_name | price
+         --------------+-------
+          Mobile       | 30000
+          TV           | 35000
+          AC           | 28000
+
+
+Right Join :- Return all records from right table and metching record from left table.
+              And if there are no corresponding records found from the left table, it will return null.
+			  
+            Syntax => SELECT columns FROM table1 Right [OUTER] JOIN table2 ON table1.column = table2.column;	
+
+Ex -    select* from Orders;
+        order_id | product_no | quantity
+         --------+------------+----------
+             101 |          1 |        2
+             102 |          2 |        1
+             103 |            |        1
+(3 rows)
+
+
+       select Order_id ,Quantity from Products Right OUTER JOIN Orders ON Products.Product_no=Orders.Product_no;
+       order_id | quantity
+        --------+----------
+            101 |        2
+            102 |        1
+            103 |        1
+(3 rows)
+			
+
+	
+Union Join :-
+              	Returns all rows from both table same as full joins but it filters duplicate row where full join select all rows. 
+				
+				Syntax =>  select name from Boys where roll>2 UNION Select name from Girls where roll>1;
+				
+				
+				select* from Boys;
+                 roll |    name    | gender
+                ------+------------+--------
+                    1 | Mike       | Male
+                    2 | Sam        | Male
+                    3 | DeVilliers | Male
+             (3 rows) 
+
+
+              select* from Girls;
+                 roll |  name   | gender
+                ------+---------+--------
+                    1 | Divya   | Feale
+                    2 | Deepti  | Femle
+                    3 | Geetika | Fmale
+                    4 | Sakshi  | Female
+             (4 rows)
+			 
+	   	   select name from Boys where roll>2 UNION Select name from Girls where roll>1;
+               name
+            ------------
+            DeVilliers
+            Deepti
+            Sakshi
+            Geetika
+          (4 rows)
+
+
+Intersect :- Returns only matching rows 
+
+           select name from Boys where roll>2 Intersect Select name from Girls where roll>1;
+            name
+          ------
+          (0 rows)
+ 
+ Natural Join :-
+ 
+           The Natural Join keyword is used with the SELECT command and must be written after the FROM Keyword.
+		   When both tables have a unique column, which contains different column names.
+           When a table has a common field and where both columns have a same name.
+            
+			SELECT *   
+            FROM Course_categories  
+            NATURAL JOIN Course;
+          
+
+Self Join :-
+          A self join is a join in which a table is joined with itself (which is also called Unary relationships), 
+          especially when the table has a FOREIGN KEY which references its own PRIMARY KEY.To join a table itself 
+          means that each row of the table is combined with itself and with every other row of the table.
+
+       Ex -
+                Employees table
+                Emp_id |    Name    | Manager_id
+                 ------+------------+--------
+                   121 | Mike       | 450
+                   320 | Sam        | 190
+                   450 | DeVilliers | 320
+
+            Query to fetch all the employees who are also managers from the employee table.
+
+         Now we use self join 
+       
+         select Distinct Emp_id from Employees E INNER JOIN Employees M on E.Emp_id=M.Emp_id; 
+      
+    
+
+
+
+
+
+
+Cross Join  :-
