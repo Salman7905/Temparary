@@ -1,0 +1,43 @@
+Trigger Example :-
+__________________
+
+
+CREATE TABLE COMPANY(
+   ID INT PRIMARY KEY     NOT NULL,
+   NAME           TEXT    NOT NULL,
+   AGE            INT     NOT NULL,
+   ADDRESS        CHAR(50),
+   SALARY         REAL
+);
+
+------------------------------
+CREATE TABLE AUDIT(
+   EMP_ID INT NOT NULL,
+   ENTRY_DATE TEXT NOT NULL
+);
+----------------------------------
+
+CREATE  FUNCTION befo_insert()
+  RETURNS trigger AS
+$$
+BEGIN
+ NEW.NAME = UPPER(NEW.NAME);
+RETURN NEW;
+END;
+
+$$
+LANGUAGE 'plpgsql';
+
+---------------------------------------
+CREATE TRIGGER che_val_befo_ins
+  BEFORE INSERT
+  ON company
+  FOR EACH ROW
+  EXECUTE PROCEDURE befo_insert();
+-------------------------------------------------
+INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY)VALUES (101, 'mike', 20, 'Lucknow', 235347.98 );
+
+
+
+
+

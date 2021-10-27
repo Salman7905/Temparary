@@ -1,0 +1,105 @@
+ Pass@123                                       Dotnet Core webapi 
+                                              --------------------
+
+Dotnet Core web API :- (dotnet new webapi --name EmployeeService)
+               Dotnet core web API is basically meant for making http service.
+               Http service is basically a service is request to that i can give you data(request and response)
+               Http verbs means (get,post,put,update,delete)
+               We can make get, post ,update a data using angular.
+-------------------------
+1) What is controller?
+2) what is appsetting.json file?
+3) what is employeeservise.csproj ?     
+4) what is program.cs ?
+5) what is stratup.cs?
+
+1)Dotnet core webapi has given the controller just for the demo purpuse and the controller name is weatherforcast controller 
+  and provided one get operation for accessing the data in browser.
+  Controller is means for making endpoint.
+
+2) Controller is a class in dotnet core to make endPoint(endpoint means url or route).
+
+3) There are certain rules to make endPoint 
+    a) Class name
+    b) Function prefix
+    c) Route 
+    d) apiController 
+    e) The base class of my class will be controllerbase class 
+Class.ControllerBase class is encapsulating the feature of http verbs(get,post,put,pull,delete).
+-------------------------------------------------------------------
+Note :-
+    1) Kastrel is a server 
+
+(Microsof.Aspsoft.AspNetCore.Mvc) for importing ControllerBase 
+   
+ (dotnet watch run) to run server 
+
+--------------------------------------------------------------------------------
+Example :-
+
+Employee.cs
+-------------
+   namespace EmployeeService.Models
+{
+    public class Employee
+    {
+        public int EmpID{get;set;}
+        public string Name{get;set;}
+        public int Salary{get;set;}
+    }
+}
+    
+ 
+
+EmployeeList.cs
+------------------
+
+using EmployeeService.Models;
+using System.Collections.Generic;
+namespace EmployeeService.Models1
+{
+    public class EmployeeList
+    {
+        List<Employee> empList = new List<Employee>();
+        public List<Employee> addEmployee()
+        {
+            empList.Add(new Employee{
+               EmpID = 101,
+               Name = "Mike",
+               Salary = 75000
+            });
+            empList.Add(new Employee{
+               EmpID = 102,
+               Name = "DeVilliers",
+               Salary = 88000
+            });
+           return empList;
+        }
+    }
+}
+
+
+
+
+Controller
+-------------
+
+using EmployeeService.Models;
+using System.Collections.Generic;
+using EmployeeService.Models1;
+using Microsoft.AspNetCore.Mvc;
+namespace EmployeeService.Controllers
+{
+     [Route("[controller]")]
+    public class PizzaController
+    {
+        [HttpGet]
+        public List<Employee> empDetails()
+        {
+           // return "Pizza";
+           EmployeeList emplist = new EmployeeList();
+           List<Employee> lists = emplist.addEmployee();
+           return lists;
+        }
+    }
+}     

@@ -1,0 +1,179 @@
+                                                                             Day 16 
+                                                                            ---------
+  
+1) Procedure (insert ,update,delete) 
+2) Function (insert ,update,delete) 
+________________________________________________________________________________________________________________________________________________________________________
+Note :-  Returning Clause => The RETURNING clause allows you to retrieve values of columns (and expressions based on columns) that were modified by an insert, delete or update.
+          Example :-
+                   CREATE TABLE users (firstname text, lastname text, id serial primary key);
+                   INSERT INTO users (firstname, lastname) VALUES ('Joe', 'Cool') RETURNING id;  
+________________________________________________________________________________________________________________________________________________________________________     
+✔IN
+IN represents an input type parameter. It is used to pass the value in the function or procedure, by default 
+all the parameters are input type if we don’t use IN keyword after the parameter name.
+Ex :-
+      EmpName VARCHAR(100),  
+    EmpDob DATE,  
+    EmpCity VARCHAR(100),  
+    EmpDesignation VARCHAR(100),  
+    EmpJoiningDate DATE
+
+
+✔OUT 
+OUT represents the output type parameters. It returns the value; you can pass it as null or 
+it can be uninitialized because these types of a parameter only use to set and return value from function and procedure
+Ex :-
+     
+
+*INOUT
+ 
+INOUT represent both input and output type parameter, these types of parameters can be used to pass 
+the value as well as return the value from a function or procedure.
+_____________________________________________________________________________________________________________________________________________________________________________
+1) Procedure :-
+
+1.) Insert 
+
+create procedure addemployee
+(
+  EmpId INOUT INT,
+  EmpName VARCHAR(100),
+  EmpDob DATE,
+  EmpCity VARCHAR(100),
+  EmpDesignation VARCHAR(100),
+  EmpJoiningDate DATE
+)
+LANGUAGE plpgsql AS
+$$
+ BEGIN
+   INSERT INTO Employees (Name,DateOfBirth,City,Designation,JoiningDate) VALUES
+    (
+     EmpName,
+     EmpDob,
+      EmpCity,
+      EmpDesignation,
+      EmpJoiningDate
+      ) RETURNING Id INTO EmpId;
+     End
+ $$;
+
+call addemployee(101,'Mike','10-2-1990','Delhi','Software Engineer','1-2-2000');
+call addemployee(102,'hello','10-2-1990','Lucknow','Software Engineer','1-2-2000');
+call addemployee(103,'hello','10-2-1990','Lucknow','Software Engineer','1-2-2000'); 
+-------------------------------------------------
+2) Update 
+
+CREATE OR REPLACE PROCEDURE UpdateEmployee  
+(  
+    EmpId INT,  
+    EmpName VARCHAR(100),  
+    EmpDob DATE,  
+    EmpCity VARCHAR(100),  
+    EmpDesignation VARCHAR(100),  
+    EmpJoiningDate DATE  
+)  
+LANGUAGE plpgsql AS  
+$$  
+BEGIN         
+   UPDATE Employees SET   
+   Name = EmpName,  
+   DateOfBirth = EmpDob,  
+   City = EmpCity,  
+   Designation = EmpDesignation,  
+   JoiningDate = EmpJoiningDate  
+   Where Id = EmpId;  
+END  
+$$;
+
+call UpdateEmployee(103,'DeVilliers','10-2-1990','Lucknow','Software Engineer','1-2-2000');
+-----------------------------------------------------------------------------------------------
+3) Delete 
+
+CREATE OR REPLACE PROCEDURE DeleteEmployee  
+(  
+    EmpId INT  
+)  
+LANGUAGE plpgsql AS  
+$$  
+ BEGIN  
+    DELETE FROM Employees WHERE Id = EmpId;  
+ END  
+$$;
+
+
+ call DeleteEmployee(103);
+
+
+
+
+---------------------------------------------------------------------------------------------
+
+CREATE or replace PROCEDURE searchEmp3(i integer,INOUT name1 varchar DEFAULT null)
+  LANGUAGE plpgsql AS
+$$
+BEGIN
+   SELECT name FROM Employees WHERE id = i
+   INTO name1; 
+END
+$$;
+
+Output :-
+    
+    call searchEmp3(1);
+        name1
+      -------
+       Mike
+    (1 row)
+
+
+--------------------------------------------------------------------------------------------
+
+CREATE PROCEDURE searchEmp4(i integer,INOUT name1 varchar DEFAULT null,INOUT city1 varchar default null)
+  LANGUAGE plpgsql AS
+$proc$
+BEGIN
+   SELECT name,city FROM Employees WHERE id = i
+   INTO name1,city1; 
+END
+$proc$;
+
+
+Output :-
+
+     call searchEmp4(2);
+       name1    |  city1
+      ----------+---------
+     DeVilliers | Lucknow
+ (1 row)
+
+___________________________________________________________________________________________________________________________________________________________________________
+
+2) Function :-
+
+
+
+
+
+
+
+
+create or replace procedure addCompanyEmp
+(
+ i INOUT integer ,
+ nm varchar(20),
+ ag integer ,
+ cty varchar(20)
+ )
+ as
+ $$
+ begin
+  insert into Company(id,name,age,city)values
+  (
+    id, 
+    name,
+    age,
+    city
+   )returning i into id;
+   end;
+   $$ language plpgsql;

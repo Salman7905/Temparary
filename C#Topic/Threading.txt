@@ -1,0 +1,237 @@
+Day-13
+
+Major logical topics 
+1) Indexer 
+2) Threading implementation
+3) *Introduction to TPL
+
+1) How to create user defined function
+2) How to create indexing in database
+
+Major topic :-
+   
+1) *What is stored procedure and its working ( atleast 7 programs)
+___________________________________________________________________________________________________________________________
+Proprty:- Provides a flexible mechanism for classes to expose private fields.
+          Properties are special methods called accessor. property have to accessor one is get and anothe is set
+      property can bind single private variable .
+
+          
+1) Indexer :- Indexer is a array of properties.And indexer can bind multiple private variable. Indexer is referred by this
+
+Example =>
+    
+using System;
+
+namespace MajorLogic
+{
+    class Employee
+    {
+        private object[] data = new object[2];  // variable name is data and done indexing with 2 subscript. Example data[0] and data[1].
+        
+        // indexer is reffered by this , becuase object is reffered by this
+        public object this[int i]
+        { 
+            get                                              // whole is working as encapsulation
+            {
+               return data[i];
+            }
+            set
+            {
+                data[i] = value;
+            }
+        }
+
+
+
+        // creating wrapper for the private variable
+/*         public int EmployeeId
+        {
+           get
+           {
+              return Eid;
+           }
+           set
+           {
+               Eid = value;
+           }
+        } 
+        */
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {  
+             Employee employee = new Employee();
+          //   employee.EmployeeId = 101;  // set                          whole is works as abstraction
+          //   employee.EmployeeName = "Devilliers"; // set
+          //   Console.WriteLine(employee.EmployeeName+" "+employee.EmployeeId); //get
+            
+          // doing same task using indexer
+           employee[0] = 101;    // set     // data[0] = employee[0] , data[1] = employee[1]
+           employee[1] = "DeVilliers"; // set
+           Console.WriteLine(employee[0]+" "+employee[1]); // get
+        }
+    }
+}
+
+________________________________________________________________________________________________________________________________________
+Function :- 
+           I.) Function is meant for performing some task.
+           II.)Needs to returns some value either int ,string or void etc. and returns is a keyword.
+           III.) return means data. and returns means what return , returns is directly proportional to return 
+           III.)Functions call anothor function.
+           IV.)Function does not support DML operation transaction like insert , update ,delete.
+           V.)Procedure supports DML operation transaction.
+     
+      Example =>
+
+
+         create function City(pc int)
+         returns varchar(20)
+         language plpgsql
+         as
+         $$
+         declare
+            cityname varchar(20) ='Noida';
+          begin
+             return cityname;
+         end;
+         $$ 
+         ;
+
+   Output :-
+             select City(20);
+             city 
+            -------
+             Noida
+Example =>
+
+   create function Name()
+   returns varchar(20)
+   language plpgsql
+   as
+   $$
+   begin
+       return 'Hello';
+   end;
+   $$;
+   
+   output :-
+      select Name();
+       name
+      -------
+       Hello
+      (1 row)
+
+Example :- Create function , which returns table
+          select * from Membership;
+           username | password | age
+          ----------+----------+-----
+           Mike     | 12345    |  20
+           Albert   | 54321    |  28
+Ans =>
+
+           CREATE FUNCTION getDetail() RETURNS SETOF membership AS $$
+           SELECT * FROM membership;
+           $$ LANGUAGE sql;
+          
+          CREATE FUNCTION
+       
+          select * from getDetail();
+          username | password | age
+         ----------+----------+-----
+          Mike     | 12345    |  20
+          Albert   | 54321    |  80
+
+
+ Question 1.) Create function in which you pass username as a parameter it will return password.
+ Answer )  create function getPwd(username varchar(20))
+              returns integer
+              language plpgsql
+              as
+              $$
+                 declare password integer = 54321; 
+              begin
+                 return password;
+              end;
+              $$
+              ; 
+
+              Output =>
+                        select getPwd('hi');
+                          getpwd
+                         --------
+                          54321
+  
+ Question 2.) Create function return no. of records in a table.
+ Answer ) 
+           CREATE FUNCTION getRcd() RETURNS SETOF employee AS $$
+           SELECT * FROM employee;
+           $$ LANGUAGE sql;
+       
+          Output =>
+                SELECT * FROM getRcd();
+                employee_id | employee_name
+               -------------+---------------
+                          1 | Mike
+                          2 | DeVilliers
+
+
+
+--------------------------------------------------------------------------------   
+
+Example =>
+
+ create function getuserpass(name varchar)
+ returns varchar
+ AS $$
+ begin
+ return (select password from membership where username=name);
+ end ;
+ $$ Language plpgsql;
+
+CREATE FUNCTION
+
+projectdb=# select * from getuserpass('Mike');
+
+Output =>
+
+      select * from getuserpass('Mike');
+      getuserpass
+      ------------
+        12345
+----------------------------------------------------------------------------------
+
+Example =>
+            create function getCountData()
+            returns integer
+            AS $$
+            begin
+            return (select count(*) from membership);
+            end ;
+            $$ Language plpgsql;
+            
+            CREATE FUNCTION
+
+Output =>    select getCountData();
+             getcountdata
+            --------------
+                 2
+
+create function countNme() returns integer
+as
+$$
+begin
+ return (select count(product_name) from Products);
+end;
+$$ language=sql;
+
+
+
+------------------------------------------------------------
+Assignment13 -
+1 how to use if exists
+2 all plsql work again practice
+
+

@@ -1,0 +1,60 @@
+Task :- task is better than threading because thread block main somewhere
+         task utilize the multiple processor at a time.
+        or  Task is actually mean for the parallelism.
+
+   // task is actually means for parallellism
+   // whilee multi-threading give feels of asynchronous but actually context switching take place.
+    Task is parametrized constructor
+   two types
+              1) task   :- void type
+              2) task<> :- return something
+
+async await :- resume the task at the point
+Example :-
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+namespace TplPro
+{
+    class myApp
+    {
+        public static void longTask()
+        {    
+            Thread.Sleep(7000);
+            Console.WriteLine("Woke up");
+        }
+        public static async void myTask()
+        {   
+           // Task task = new Task(new Action(longTask));
+           await Task.Run(new Action(longTask));  // new thread generated
+           Console.WriteLine("New thread is generated");
+           //task.Start();
+        }
+        static void Main()
+        {
+          myTask(); 
+          Console.WriteLine("inside main block");
+          Console.ReadLine();
+        }
+    }
+}
+
+
+
+Important Topics :-
+------------------------------------------
+1) Delegate
+2) Action delegate
+3) Func delegate
+4) Interface
+5) Abstract class
+6) Constructor chaining
+7) Exception handeling(try,throw,catch)
+8) File handeling
+9) Enum
+10) Dictionary
+11) Hashtable
+12) **List
+13) *IEnumerable
+14) using block

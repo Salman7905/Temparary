@@ -1,0 +1,198 @@
+                                                        Day 15
+                                                     -------------
+1) Out v/s ref
+2) Procedure examples
+3) Function examples
+4) Multithreading
+_____________________________________________________________________________________________________________________________
+
+Assignment - Different b/w view and function
+
+
+Thought process :- there is function in database
+
+Note :-                                 Out vs Procedure
+
+     We can use out keyword in procedure to return multiple values.
+     We can call function using procedure , but can not call procedure using function.
+      
+
+     	                           Stored Procedure	                Function
+Use in an expression		       No
+Return a value		               No
+Return values as OUT parameters		
+Return a single result set		                                 Yes(as a table function)
+Return multiple result sets
+
+		
+So in most cases, the purpose of a stored procedure is to:
+
+Perform actions without returning any result (INSERT, UPDATE operations i.e.)
+Return one or more scalar values as OUT parameters
+Return one or more result sets
+
+
+
+Ex -
+
+create or replace procedure ProcedurePr()
+as
+$$
+begin
+raise notice 'Hello , this is first procedure';
+end;
+$$ language plpgsql;
+
+call ProcedurePr();
+NOTICE:  Hello , this is first procedure
+
+
+
+--------------------
+Ex-
+
+create or replace procedure ProQuery()
+as
+$$
+  begin
+   declare username varchar(20);
+   select username from member ;
+  end;
+  $$ language plpgsql;
+
+-----------------------------
+Example :-
+
+
+create or replace function countRecord()
+returns integer
+as
+$$
+declare temp integer;
+begin
+   temp=(select count(*) from stud);
+   return temp;
+end;
+$$ language plpgsql;    
+
+CREATE FUNCTION
+
+Output =>
+        select countRecord();
+         countrecord
+        -------------
+              2
+
+---------------------------------------------
+
+Example :- Return tables
+
+create or replace function details()
+returns setof stud
+as
+$$
+   begin
+     return query select * from stud;
+   end;
+   $$ language plpgsql;
+
+Output :-
+       select details();
+         details
+     ------------------
+        (101,Mike)
+        (102,DeVilliers)
+      (2 rows)
+
+
+Or
+
+        select * from details();
+        id  |    name
+       -----+------------
+        101 | Mike
+        102 | DeVilliers
+      (2 rows)
+----------------------------------------------
+
+Example :-
+
+         give id and return name
+
+ create or replace function search(i integer)
+ returns varchar
+ as
+ $$
+ declare nm varchar(20);
+ begin
+ name=(select name from stud where id=i);
+ return nm;
+ end;
+ $$ language plpgsql;
+
+Ouput :-
+     select search(101);
+     search
+    --------
+      Mike
+   (1 row)
+
+----------------------------------------------
+create or replace procedure Addition(i integer)
+as
+$$
+  declare result integer;
+  begin
+     result = i+5;
+     raise info 'Addition is %',result;
+   commit;
+  end;
+$$ language plpgsql;
+
+Output :-
+      call Addition(12);
+      INFO:  Addition is 17
+      CALL
+
+
+==>
+create procedure increase(inout i integer )
+LANGUAGE 'plpgsql'
+AS $$
+begin
+    i = i+1;
+    return;
+end ;
+$$;
+______________________________________________________________________________________________________
+
+There are two thread behind thread 
+1) ParametrizedThreadStart => takes single parameter and return as a void
+2) ThreadStart  => calls the method which does not take parameter and return void
+
+Example :-
+
+using System;
+using System.Threading;
+namespace TplProgram
+{
+    // Multiple threading
+    class myApp
+    {
+        public static void longTask()
+        {   
+            Console.WriteLine("I got sleep for 7 seconds"); 
+            Thread.Sleep(7000);
+            Console.WriteLine("I got wake")
+            Console.WriteLine("Going to karol bagh for major work ,hopefully it will take time");
+        }
+        static void Main()
+        {
+            Thread thread = new Thread(new ThreadStart(longTask));  
+             thread.Start();
+            
+             Console.WriteLine("Inside the main function");
+        }
+    }
+}
+

@@ -1,0 +1,30 @@
+25/10/2021
+----------
+Que) What is promise?
+Ans) We can simplify the issu with callback hell as program seems to be complex due 
+     to nested Architecture
+
+promise has three part
+1) pending
+2) successs or fullfill or reolve
+3) reject or catch
+
+-------------------------------------------------------------------------------------
+Que) What is Observeable?
+     Continuation of promise is called Observable. 
+---------------------------------------------------------------------------------------
+
+We use the keyword "then ,catch",data is given to "then"  by resolve(if we have multiple next instead of resolve is called observable) and data given to "catch"
+is done by reject.
+------------------------------------------------------------------------------------
+Note :- rxjs (Of operator) returns data as observable.
+     
+      import { of } from 'rxjs';
+      import { map, reduce, filter } from 'rxjs/operators';
+      let test1 = of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+      let case1 = test1.pipe(
+      filter(x => x % 2 === 0),
+      reduce((acc, one) => acc + one, 0)
+      )
+      case1.subscribe(x => console.log(x));
+-----------------------------------------------------------------------------------

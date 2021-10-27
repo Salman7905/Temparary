@@ -1,0 +1,21 @@
+26/10/2021
+----------
+md MainProgram
+cd MainProgram
+-----------------------------
+1)dotnet new classlib --name Domain
+2)dotnet new classlib --name DataAccesslayer
+3)dotnet new classlib --name BussinessLogicLayer
+4)dotnet new sln --name UserMgmtsln
+5)dotnet new webapi --name UserMgmt.API
+adding to solution => 
+6)dotnet sln add BussinessLogicLayer/BussinessLogicLayer.csproj
+7)dotnet sln add Domain/Domain.csproj
+
+8)dotnet sln add DataAccesslayer/DataAccesslayer.csproj
+
+9)dotnet add ./DataAccesslayer/DataAccesslayer.csproj reference ./Domain/Domain.csproj
+
+10) dotnet add ./BussinessLogicLayer/BussinessLogicLayer.csproj reference ./DataAccesslayer/DataAccesslayer.csproj
+
+11) dotnet add ./UserMgmt.API/UserMgmt.API.csproj reference ./BussinessLogicLayer/BussinessLogicLayer.csproj

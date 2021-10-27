@@ -1,0 +1,121 @@
+1) Class is by default internal which is same as public ,and can not be private.
+2) And variable inside the class all are by default private.
+3) And class is by default referenced  (Heap memory).
+4) new keyword basically call the garbage collector and gc is responsible to find the 
+   memory if availabe then memory will allocate ,if not then it will create new memory
+
+Type of constructor:-
+Default, private, static, parameterize constructor
+their is one more constructor called copy constructor
+copy constructor  is a mechanism to assign data from one object to another object....
+
+Copy Constructor:-
+   Copy constructor is a mechanism to assign the data to one object to another 
+   object not reference or address.
+
+There are two ways we can apply copy constructor in a program.
+Otherwise there is a major security problem.
+1) Do provide explicit copy constructor.
+2) MemberwiseClone.
+-----------------------------------------------
+
+Example :-
+       
+using System;
+
+namespace CopyConstructorPro
+{
+     class Person
+    {
+        public String Resume { get; set; } //instance variable
+
+        public Person(string rm)
+        {
+            Resume = rm;
+        }
+        // if we pass class name within constructor , then it is called as copy constructor
+        public Person(Person obj) // Copy constructor
+        {
+            this.Resume = obj.Resume;  // giving the value not the reference
+        }
+         public Person()
+        {
+            
+        }
+    }
+    class rnd1
+    {
+        static void Main()
+        {
+            Person p1 = new Person("My Resume is prepared");
+           Person p2 = new Person(p1); 
+            p1.Resume = "My resume is prepared , I am in Noida";
+            Console.WriteLine("P1 => "+p1.Resume);
+            Console.WriteLine("P2 => "+p2.Resume);
+        }
+    }
+}
+
+
+---------------------------------------------------------------------------------
+         
+        using System;
+
+namespace CopyConstructorPro
+{
+     class Person
+    {
+        public String Resume { get; set; } //instance variable
+
+        public Person(string rm)
+        {
+            Resume = rm;
+        }
+        public Person()
+        {
+
+        }
+    }
+    class rnd1
+    {
+        static void Main()
+        {
+            Person p1 = new Person("My Resume is prepared");
+            Person p2 = new Person();
+            Console.WriteLine(p1.Resume + " " + p2.Resume);
+            p2 = p1;   // Application is crashed for p2. Now p2 become alias for p1, that's why p2 is proxy object.
+            Console.WriteLine(p2.Resume);
+            p2.Resume ="This is P2 resume";
+            Console.WriteLine(p2.Resume);
+            p2.Resume = "Show 12 years of experience";
+            Console.WriteLine(p2.Resume);
+        }
+    }
+}
+------------------------------
+Conclusion :- If we assign one object to another object it means first object is giving
+              address to another object. There is major security issue why i give address of my
+              object to someone rather than I should give of my object to another.
+  Copy constructor is a  mechanism or technique not to give address of one object to another
+  (newly) object rather than I should give value of one object to newly object.
+  This mechanism is also known as copy constructor or shallow copy.  
+
+____________________________________________________________________________________
+Proxy Object:-
+
+Proxy is a structural design pattern that provides an object that acts as a 
+substitute for a real service object used by a client. A proxy receives client 
+requests, does some work (access control, caching, etc.) and then passes the 
+request to a service object.
+
+-----------------------------------------------------------------------------
+
+OOPS (object oriented programming paradigms) . 
+
+Why object is oriented? 
+What is OOPS? 
+  When we design a class purpose is we can create own structure, template and later on we provide memory to it and data . So object consist a data , 
+  so data should be saved from accidental alteration so my data should be safe and no 
+  one can access my data then we can say it as object is oriented.
+
+

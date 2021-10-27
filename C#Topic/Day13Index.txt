@@ -1,0 +1,16 @@
+Day-13
+
+Major logical topics 
+1) Indexer 
+2) Threading implementation
+3) *Introduction to TPL
+4) Exception Handeling using dispose function
+______________________________________________________________________________________________________________________________
+
+1) How to create user defined function
+2) How to create indexing in database
+
+
+Major topic :-
+   
+1) *What is stored procedure and its working ( atleast 7 programs)

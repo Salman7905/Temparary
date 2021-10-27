@@ -1,0 +1,240 @@
+27-08-2021 
+_______________________________________________________________________________________________________________________
+1)variable 
+2)How to apply loop?
+
+link:- https://www.geeksforgeeks.org/postgresql-for-loops/
+___________________________________________________________________________________________________________________________
+
+3)how to apply break?    // exit
+4)how to apply continue?
+5)how to apply switch?
+6)how to apply if-else?   
+7)how to use begin-end?
+
+----------------------------------------------------------------------------------------------------------------------
+how to Declare a variable in database?
+
+link 1:-https://www.postgresqltutorial.com/plpgsql-variables/
+link 2:- https://www.techonthenet.com/postgresql/declare_vars.php#:~:text=The%20syntax%20to%20declare%20a%20variable%20in%20PostgreSQL,The%20datatype%20to%20assign%20to%20the%20variable.%20Optional.
+    
+_________________________________________________________________________________________________________________
+What is a variable in PostgreSQL?
+In PostgreSQL, a variable allows a programmer to store data temporarily during the execution of code.
+
+Syntax
+The syntax to declare a variable in PostgreSQL is:
+
+variable_name data_type [:= expression];
+
+In this syntax:
+
+First, specify the name of the variable. It is a good practice to assign a meaningful name to a variable. For example, instead of naming a variable i you should use index or counter.
+Second, associate a specific data type with the variable. The data type can be any valid data type such as integer, numeric, varchar, and char.
+Third, optionally assign a default value to a variable. If you don’t do so, the initial value of the variable is NULL.
+
+
+Parameters or Arguments
+variable_name
+
+         The name to assign to the variable.
+CONSTANT
+         Optional. If specified, the value of the variable can not be changed after the variable has been initialized.
+datatype
+         The datatype to assign to the variable.
+NOT NULL
+         Optional. If specified, the variable can not contain a NULL value.
+initial_value
+         Optional. It is the value initially assigned to the variable when it is declared. If an initial_value is not specified, the variable is assigned a value of NULL.
+Example - Declaring a variable
+Below is an example of how to declare a variable in PostgreSQL called vSite.
+
+DECLARE vSite varchar;
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Do :-
+     DO -- execute an anonymous code block
+Synopsis
+DO [ LANGUAGE lang_name ] code
+Description
+DO executes an anonymous code block, or in other words a transient anonymous function in a procedural language.
+
+The code block is treated as though it were the body of a function with no parameters, returning void. It is parsed and executed a single time.
+
+The optional LANGUAGE clause can be written either before or after the code block.
+    
+Example :-
+   
+do $$    // $ means entry point and do means anonymous block      
+declare
+   id      integer := 1;   
+   name varchar(50) := 'John';
+   age numeric(10) := 22;          //numreic(10,2)  for precision decimal ex Payment 55.90
+begin 
+   raise notice '% % %',          // works to print message and error , like print function
+       id, 
+       name, 
+       age; 
+end $$;       // here end is the exit point
+
+
+output :-  NOTICE:  1 John 22
+           DO
+
+-------------------------------------------------------------------------------------------------------
+
+do $$ 
+declare
+   currentTime time := now();       // used to print current time 
+begin 
+   raise notice '%',currentTime ;
+end $$;
+
+Output :-
+   NOTICE:  15:42:32.095967 
+   DO
+
+----------------------------------------------------------------------------------------------------------------
+For loop :-
+            
+       do $$
+        begin
+         for i in 1..10 loop
+           raise notice 'i: %',i ;
+          end loop;
+          end $$;
+Output :-
+         NOTICE:  i: 1 
+         NOTICE:  i: 2
+         NOTICE:  i: 3
+         NOTICE:  i: 4
+         NOTICE:  i: 5
+         NOTICE:  i: 6
+         NOTICE:  i: 7
+         NOTICE:  i: 8
+NOTICE:  i: 9
+NOTICE:  i: 10
+DO 
+
+Ex :- 2
+dbname=# do $$
+dbname$# begin
+dbname$# for a in 1..10 loop
+dbname$# raise notice 'value of a %',a;
+dbname$# end loop;
+dbname$# end $$;
+NOTICE:  value of a 1
+NOTICE:  value of a 2
+NOTICE:  value of a 3
+NOTICE:  value of a 4
+NOTICE:  value of a 5
+NOTICE:  value of a 6
+NOTICE:  value of a 7
+NOTICE:  value of a 8
+NOTICE:  value of a 9
+NOTICE:  value of a 10
+____________________________________________________________________________________________________________________________
+
+if  Condition:-
+
+do $$
+ declare
+ DECLARE age integer :=20;
+ begin
+ if(age>18) then
+   raise notice 'Age is %',age;
+ end if;
+ end $$;
+------------------------------------------------------------------------------------------------------------------
+
+Break :- The exit statement allows you to terminate a loop including an unconditional loop, a while loop, and a for loop.
+
+       The following shows the syntax of the exit statement.
+ Syntax -
+        if counter > 10 then
+        exit;
+        end if;
+
+Example :
+      do $$
+      begin 
+      for a in 1..10 loop
+      raise notice 'Value of a = %',a;
+      if a >7 then 
+      exit;
+      end if;
+      end loop;
+      end $$;
+Output -
+  NOTICE:  Value of a = 1
+NOTICE:  Value of a = 2
+NOTICE:  Value of a = 3
+NOTICE:  Value of a = 4
+NOTICE:  Value of a = 5
+NOTICE:  Value of a = 6
+NOTICE:  Value of a = 7
+NOTICE:  Value of a = 8
+DO
+---------------------------------------------------------------------------------------------------------------
+If-else :-
+       do $$
+       declare a integer :=20;
+       begin
+       if a>18 then
+        raise notice ' You are young';
+       else
+        raise notice 'You are a kid';
+       end if;
+       end $$;
+Output :-
+          NOTICE:   You are young 
+          DO
+_________________________________________________________________________________________________________________
+
+Continue :-
+       Ex -
+            do $$
+            declare val integer := 3;
+            begin
+            for i in 1..10 loop
+              if  i< val then 
+               continue;
+              else
+                 raise notice 'i =%',i;
+              end if;
+              end loop;
+              end $$;
+Output =>                     
+NOTICE:  i =3
+NOTICE:  i =4
+NOTICE:  i =5
+NOTICE:  i =6
+NOTICE:  i =7
+NOTICE:  i =8
+NOTICE:  i =9
+NOTICE:  i =10           
+
+
+___________________________________________________________________________________________________________________________
+
+Switch case :-
+
+           create table switch(a integer);
+CREATE TABLE
+dbname=# insert into switch values(1),(2),(3),(4),(5);
+INSERT 0 5
+dbname=# select a,
+dbname-# case a
+dbname-# when 1 then 'One'
+dbname-# when 2 then 'Two'
+dbname-# when 3 then 'Three'
+dbname-# else 'Other'
+dbname-# end
+dbname-# from switch;
+ a | case
+---+-------
+ 1 | One
+ 2 | Two
+ 3 | Three
+ 4 | Other
+ 5 | Other
+(5 rows)

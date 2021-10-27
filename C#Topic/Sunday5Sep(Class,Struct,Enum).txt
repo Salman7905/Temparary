@@ -1,0 +1,68 @@
+Class ...  Object  (class object has all the characterstics)
+------------------------------------------------------------------------
+Struct ...  Object (it makes lightweight object , example:- Date,time is example of lightweight object)  , struct is value type and its execution is in stack memory.
+            Struct can be used to hold small data values.
+            There is no need to create new keyword to call struct function , unlike class   
+   Example :-
+       struct Coordinate
+       {
+          public int x;
+          public int y;
+       /* public Coordinate()  // can not create default constructor in struct
+          {
+                     
+          }   */
+       }       
+       public static void Main()
+        { 
+          // Coordinate point = new Coordinate();
+          //   or
+           Coordinate point;
+           Console.WriteLine(point.x);
+           Console.WriteLine(point.y);
+         }    
+--------------------------------------------------------------------------
+Enum ... Object (Constant value or read only variable)
+          enum can not have methods
+ 
+Example :-
+          
+using System;  
+public class EnumExample  
+{  
+    public enum Season 
+    { 
+     WINTER,   // by dafault value is start with index like 0 , 1 and so on..
+     SPRING,   // if we assign any of by yourself ,like 2 the , next will be 3 ,4 and  so on...
+     SUMMER,
+     FALL 
+    }    
+  
+    public static void Main()  
+    {  
+        int x = (int)Season.WINTER;  
+        int y = (int)Season.SUMMER;  
+        Console.WriteLine("WINTER = ", x);  
+        Console.WriteLine("SUMMER = ", y);  
+    }  
+}  
+
+--------------------
+
+public class EnumExample  
+{  
+    public enum Payment 
+    { 
+     Cash,   // by dafault value is start with index like 0 , 1 and so on..
+     Paytm,   // if we assign any of by yourself ,like 2 the , next will be 3 ,4 and  so on...
+     GPay,
+   
+    }    
+  
+    public static void Main()  
+    {  
+        int c = (int)Payment.Cash;  
+        int p = (int)Payment.Paytm;  
+        Console.WriteLine("Cash = ", c);  
+        Console.WriteLine("Paytm = ", p);  
+    }  

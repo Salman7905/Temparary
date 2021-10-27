@@ -1,0 +1,367 @@
+___________________________________DOTNET Notes___________________________________________
+
+# INTRODUCTION TO C#
+
+*.Net Core(Product of Microsoft)
+*It is an open source and it can be run on any operating system.
+*Roslyn-Is a compiler of C# in .NET to compile the code.
+*C# is an oops.
+* Major part of .NET is WebAPI(creating a Service).
+*dotnet build is a command to compile the code in C#.
+*dotnet run is a command to run the program.
+*CLR(common Language Runtime) is a runtime environment to execute a Program.
+.NET run->CLR->	Execute the Code-> "Hello World".
+_____________________________________________________________________________________
+ARCHITECUTRE OF C#:
+source code -> Program.cs -> compiler internally->assembly file
+______________________________________________________________________________________
+synchronous VS Asynchronous
+Synchronous means event occur at same time but Asynchronous means event out of synch
+_______________________________________________________________________________________
+Compilation Phase in C#
+
+*if source code conatin main method
+source code (program.cs)->Compiler section(Roslyn)->Assembly file(.exe file)
+
+*if source code does not conatin main method
+source code (program.cs)->Compiler section(Roslyn)->Assembly file(.dll file)
+_______________________________________________________________________________________
+Basic Commands in C#
+
+# dotnet new console -o <name>
+# dotnet new classlib -o <class lib name>
+# dotnet build 
+# dotnet run
+_______________________________________________________________________________________
+How  Program can access Dll files
+
+ Dll--->exe
+  |----->exe
+  |----->exe
+________________________________________________________________________________________
+what is namespace in C# ?
+# it is a collection of classes.
+# used to remove or avoid the ambiguity between multiple classes(when we have multiple classes having same name available in multiple libraray)
+
+________________________________________________________________________________________
+
+Making structurce for the project:-(Library creation and its references)
+
+___________________________________________________________________________________________
+
+Steps for (Library creation and its references)
+
+Step1) make new directory let say Assignmnet-2 
+Step2) create a new application App1 using “dotnet new console --name App1”
+Step3) to check App1 creation use command “code .” to open it in vscode
+Step4) Application App1 compiled and run successfully
+Step5) Creating two libraries named area and perimeter inside Assignmnet-2 using 
+		“dotnet new classlib –o <libname>"
+Step 6) Now Creating new solution file name myproject
+	Here ,Inside Assignment-2 there is an application named app1 library named 
+	area and perimeter and solution file name myproject
+Step 7) now, we are adding App1.csproj to solution file
+Step 8) Similarly we are going to add area.csproj and perimeter.proj in our solution file 
+	name myproject
+Step 9) Now we are going to create some function inside classes of area and perimeter library
+Step 10) Now we are going to take references from area and perimeter library to our 
+	application App1.csproj
+Step 11) Now we are going to create obj of classes in our application app1 inside 
+program.cs as shown below:-
+
+___________________________________________________________________________________
+Source code
+ 
+using System;
+using area;
+using perimeter;
+namespace App1
+{
+ class Program
+ {
+ static void Main(string[] args)
+ {
+ area1 a=new area1();
+ perimeter1 p= new perimeter1();
+ 
+ Console.WriteLine("Area and perimeter of circle");
+ Console.WriteLine("enter radius of circle");
+ int r=Convert.ToInt32(Console.ReadLine());
+ Console.WriteLine("area and perimeter of circle is"+ a.area_circle(r)+" and "+p.peri
+_circle(r) );
+ Console.WriteLine("Area and perimeter of rectangle");
+ 
+ Console.WriteLine("enter length of rectangle");
+ int l=Convert.ToInt32(Console.ReadLine());
+ Console.WriteLine("enter width of rectangle");
+ int b=Convert.ToInt32(Console.ReadLine());
+ Console.WriteLine("area and perimeter of rectangle is"+ a.area_rectangle(l,b) +" and
+"+p.peri_rectangle(l,b) );
+ Console.WriteLine("Area and perimeter of square");
+ Console.WriteLine("enter side :");
+ int s=Convert.ToInt32(Console.ReadLine());
+ Console.WriteLine("area and perimeter of square is"+ a.area_sqr(s)+" and "+p.peri_sq
+r(s) );
+ }}}
+______________________________________________________________________________________________________
+
+Step 12) Now we compile our program.cs inside App1 using “dotnet build” command
+Step 13) Now we run program.cs which is inside App1 using “dotnet run” command
+___________________________________________________________________________________________________________________
+
+                                     ======================  OOPs in C#  =====================
+
+Class - Class is a keyword/technique to create user defined data type (which can be customized according to our needs/requirements).
+      - within a class there can be multiple type of variables according to our needs.
+
+Object - An Object is an instance of a Class. 
+       - When a class is defined, no memory is allocated but when it is instantiated (i.e. an object is created) memory is allocated.
+
+Variable of a class - a copy of a class that is not initialized.
+
+Instance of a class - a copy of a class that is initialized by using the new keyword. 
+		    - Instance has its own memory and never shared with another instance.
+
+Reference of a class - a copy of a class that is initialized using an existing instance. 
+		     - will not have any memory allocation, they will be sharing the same memory of the instance that is assigned for initializing the variable.
+
+Memory Allocation:
+
+RAM contains : Stack, Heap, Global Memory, Cache
+
+		Stack Memory					 |			Heap Memory
+---------------------------------------------------------------- | --------------------------------------------------------------------------
+Value Type --> Fixed Type --> Stack Memory			 |  Reference Type --> Dynamic Type --> Heap Memory
+Size Fixed ==> Value type (eg. int, double, byte, boolean,etc)   |  Class is a reference type --> goes into Heap Memory
+Function() --> execution takes place in stack memory.		 |  If a variable is defined inside a class it goes into heap memory. 
+If we define a variable inside function it goes into stack memory|
+
+----------------------------------
+
+Constructor - It's a special method present under a class responsible for initializing the variables of that class.
+	    - The name of a constructor method is exactly the same name of the class in which it was present.
+	    - It's a non value returning method.
+	    - Each and every class requires this constructor if we want to create the instance of that class.
+
+class Test
+{
+   int i;
+}
+
+Test obj =  new Test();		// instance of class
+
+We have to define a constructor under the class, but if we fails to do so an implicit constructor gets defined in the class by the compiler.
+
+class Test
+{
+   int i;
+   string s;
+   bool b;
+   // Implicit constructor / Default Constructor - Parameterless
+   public Test()
+   {
+	i=0;		//initializing the variable
+	s = null;
+	b = false;
+   }
+}
+
+Default Constructor - a constructor which doesn't take any parameter. 
+		    - Implicitely defined constructors are public.
+
+We can also define a constructor under the class and we define it we can call it as Explicit Constructor. It can be Parameter-less or Parameterized also.
+Syntax of Explicitely defined Constructor:
+
+<modifiers> <Name>(<Parameters>)
+{
+   -statements
+}
+
+Defining - Implicit or Explicit
+Calling  - Explicit 	//you only should call, if we don't call a constructor it is not going to execute
+
+Types of Constructor:
+1. Default or Parameter-less Constructor - if a constructor doesn't take any parameter. 
+					 - can be defined by programmer explicitely or implicitely(provided there is no explicit constructor under the class)
+2. Parameterized Constructor - if a constructor method is defined with any parameter. 
+			     - can be defined by the programmer only and can never be defined implicitely.
+3. Static Constructor - If a constructor is explicitely declared by using static modifier.
+		      - without static keyword are non-static/instance constructors(except implicitely called constructors).
+		      - if a class contains any static variables then only implicit static constructor will be present or else we need to define them explicitely.
+		      - responsible for initializing static variables
+		      - In the life cycle of a class it executes only one time.
+		      - *these constructors are first to execute under any class.
+		      - *static constructors can't be parametrized so overloading static constructors is not possible.
+class Test
+{
+   static Test() 	//static constructor
+   {
+   }
+   public Test()	//implicit default constructor
+   {
+   }
+}
+
+4. Copy Constructor - if we want to create multiple instances with the same values than we use these copy constructors.
+		    - the constructor takes the same class as a parameter to it.
+
+5. Private Constructor - Private constructor is a special instance constructor which is used in a class that contains static member only.
+		       - If a class has one or more private constructor and no public constructor then other classes are not allowed to create instance of this class; this means you can neither
+			 create the object of the class nor can it be inherited by other classes.
+		       - The main purpose of creating private constructor is to restrict the class from being instantiated when it contains every member as static. 
+
+--------------------------------
+
+struct --> value type  --> stack memory  --> no default constructor
+
+------
+
+With var & dynamic we can do aliasing of a class.
+
+var - used for aliasing
+    - early binding (initialization is must, also declaration)(decides at compile time)
+
+dynamic - used for aliasing
+        - late binding (initialization not necessary)(decides at runtime)
+
+------------------------------
+
+Out - can return multiple values
+    - can be used only in function parameter
+    - don't need to be initialized (However the called method is required to assign a value before the method returns)
+
+Ref - can return multiple values
+    - can be used only in function parameter
+    - need to be initialized
+    - an argument is passed by a reference, not by value
+
+this - If there is both default and parametrized constructor in a class. We don't want to call the function twice, that's why this keyword is used.
+     - this is called constructor chaining.
+
+same class - this keyword
+different class - base keyword
+
+------------------------------------
+
+Function Overloading - to provide multiple options
+		     - eg. Amazon payment gateway have different payment methods like debit card, credit card, upi,etc.
+
+--------------------------
+
+Boxing - putting value type to reference type
+
+value type --> fixed type  --> stack
+
+reference type --> dynamic type --> heap
+
+Unboxing - converting object type into value type
+
+------------------
+
+Abstract Class - Contains both Abstract(Methods without method body) and Non-Abstract(Methods with method body) methods
+	       - It helps derived class to become more consistant
+	       - we have to use abstract keyword to define a class as abstract
+
+abstract class math
+{
+  public abstract void Add(intx, int y);	//Abstract Method
+  public void Sub(int x, int y)			//Non-Abstract method
+  {
+	Console.WriteLine(x-y);
+  }
+}
+
+Note: We can't create instance of a class which contains abstract methods,
+they can be implemented using override
+
+public override void Sub(int x, int y)
+{
+    Console.WriteLine(x-y);
+}
+
+----------------
+
+Interface - Makes the rules for classes / makes class consistant
+	  - It is also a user-defined data type
+	  - Contains only Abstract Methods(Methods without method body)
+	  - default scope of the members is public
+	  - we can't declare any fields/variables under an interface
+	  - an interface can inherit from another interface
+Syntax: 
+<modifier> interface <name>
+{
+    -Abstract member declaration
+}
+
+First create a interface file
+namespace Interface1.Shift
+{
+    public interface IShifts
+    {
+         int work();
+    }
+}
+
+Calling Interface:
+namespace Interface1.Employee
+{
+    public class Employees : IShifts
+    {
+        public int work()
+        {
+            return 9;
+        }
+    }
+}
+--------------------
+
+Properties - Properties is a mechanism to access the private variable of a class outside the class.
+	   - By properties we can achieve encapsulation 
+	   - get, set is an accessor
+	   - using get we retrieve the value
+	   - using set we assign the value
+	   - value is a reversed keyword to assign data to the variable
+
+
+Collections - C# collection types are designed to store, manage and manipulate similar data more efficiently
+	    - Data manipulation includes adding, removing, finding, and inserting data in the collection.
+	    - .NET supports two types of collections, generic collections and non-generic collections.
+
+Non-Generic Collection	 |	Generic Collection
+-----------------------------------------------------------
+ArrayList    		-->          List
+HashTable  		-->          Dictionary
+SortedList   		-->          SortedList  
+Stack           	-->          Stack
+Queue         		-->          Queue
+
+Generics - It is an enhanced version of collection
+
+------------------
+
+Delegate - It is way to achieve encapsulation
+	 - It holds the reference of a method and then calls the method for execution.
+	 - If object of delegate have multiple method's reference, then all function signature(parameter, return type) will be same.
+
+delegate void CalcDelegate(int n1); 	//first we have to define deligate
+
+static void Main()			//then we can call that inside the main fns
+        {
+            // Delegate method
+            CalcDelegate mySq = new CalcDelegate(Calculations.Square);
+            mySq.Invoke(6);
+	}
+
+Predefined Delegates: 
+Func <> - used when we have a value returning method
+Action <> - used when we have a non-value returning method
+predicate <> - when we want the return type as boolean
+
+-------------
+
+File Handling - When we design the application & if a exception(logical error) comes, then we have to maintain the log of that exception
+	      - It means we have to create the file to maintain the log (cause of exception).
+	      - In dotnet we have the namespace "System.IO", which consists of several classes to create a file & write onto file and perform several manipulations
+	      - try, throw, catch plays a major role for handling the exception.
+	      - we write the code in try block & if any exception comes, CLR internally uses the keyword called throw & throw find suitable catch to handle the exception.
+
